@@ -1,0 +1,5 @@
+{
+  "name": "Deceit: Undercover Word Game",
+  "description": "A multiplayer social deduction game where players must identify the impostor. Features AI-generated word pairs powered by Gemini.",
+  "requestFramePermissions": []
+}
