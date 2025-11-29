@@ -25,6 +25,7 @@ const INITIAL_STATE: GameState = {
   },
   roundCount: 0,
   distributionIndex: -1,
+  usedWords: [],
 }
 
 const getRandomColor = () =>
@@ -288,6 +289,13 @@ export function useGameStore() {
       // In Online mode, everyone sees their screen immediately (-1).
       const initialDistIndex = prev.gameMode === "local" ? 0 : -1
 
+      // Update history, keeping only last 100 words to avoid hitting prompt limits
+      const newUsedWords = [
+        ...prev.usedWords,
+        wordPair.common,
+        wordPair.impostor,
+      ].slice(-100)
+
       const newState: GameState = {
         ...prev,
         players: newPlayers,
@@ -295,6 +303,7 @@ export function useGameStore() {
         startPlayerId,
         roundCount: prev.roundCount + 1,
         distributionIndex: initialDistIndex,
+        usedWords: newUsedWords,
       }
 
       if (prev.gameMode === "online") broadcastState(newState)

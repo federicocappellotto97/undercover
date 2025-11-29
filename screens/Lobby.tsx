@@ -75,7 +75,8 @@ const Lobby: React.FC<LobbyProps> = ({
     try {
       const pair = await generateWordPair(
         gameState.settings.language,
-        gameState.settings.wordSimilarity
+        gameState.settings.wordSimilarity,
+        gameState.usedWords
       )
       onStartGame(pair)
     } catch (e) {

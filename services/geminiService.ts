@@ -9,7 +9,8 @@ interface WordPair {
 
 export const generateWordPair = async (
   language: string,
-  similarity: "similar" | "random" = "similar"
+  similarity: "similar" | "random" = "similar",
+  excludedWords: string[] = []
 ): Promise<WordPair> => {
   try {
     let promptCondition = ""
@@ -20,9 +21,18 @@ export const generateWordPair = async (
       promptCondition = `The words must be semantically very similar but distinct enough to cause confusion during description (e.g., "Apple" vs "Pear", "School" vs "University", "Running" vs "Walking").`
     }
 
-    const prompt = `Generate a pair of nouns or verbs for the social deduction game "Undercover" (or Spyfall) in ${language}. 
+    // Construct exclusion string
+    const exclusionPrompt =
+      excludedWords.length > 0
+        ? `Do NOT use any of these words (or their plurals/variations) as they were used recently: ${excludedWords.join(
+            ", "
+          )}.`
+        : ""
+
+    const prompt = `Generate a creative and fresh pair of nouns or verbs for the social deduction game "Undercover" (or Spyfall) in ${language}. 
     The "common" word is for the majority, and the "impostor" word is for the spy. 
     ${promptCondition}
+    ${exclusionPrompt}
     Return ONLY valid JSON.`
 
     const response = await ai.models.generateContent({

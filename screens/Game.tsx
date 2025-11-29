@@ -65,7 +65,8 @@ const Game: React.FC<GameProps> = ({
     try {
       const pair = await generateWordPair(
         gameState.settings.language,
-        gameState.settings.wordSimilarity
+        gameState.settings.wordSimilarity,
+        gameState.usedWords
       )
       onNewRound(pair)
     } catch (e) {

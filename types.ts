@@ -25,6 +25,7 @@ export interface GameState {
   startPlayerId?: string // The ID of the player who starts the discussion
   roundCount: number
   distributionIndex: number // For local mode: which player is currently viewing their word (-1 if done)
+  usedWords: string[] // History of used words to prevent repeats
 }
 
 // Events for BroadcastChannel / PeerJS
