@@ -33,6 +33,7 @@ export const generateWordPair = async (
     The "common" word is for the majority, and the "impostor" word is for the spy. 
     ${promptCondition}
     ${exclusionPrompt}
+    Vary the complexity and style of words: sometimes simple and common, sometimes more interesting or creative, sometimes sophisticated. Avoid repetitive basic words like "tree", "table", "run", "cat" that appear constantly. Mix it up with different types of words.
     Return ONLY valid JSON.`
 
     const response = await ai.models.generateContent({
